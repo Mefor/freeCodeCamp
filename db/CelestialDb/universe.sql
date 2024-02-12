@@ -1,19 +1,21 @@
-DROP TABLE IF EXISTS moon;
-DROP TABLE IF EXISTS planet;
-DROP TABLE IF EXISTS star;
-DROP TABLE IF EXISTS galaxy;
-DROP TABLE IF EXISTS galaxy_class;
+--DROP TABLE IF EXISTS moon;
+--DROP TABLE IF EXISTS planet;
+--DROP TABLE IF EXISTS star;
+--DROP TABLE IF EXISTS galaxy;
+--DROP TABLE IF EXISTS galaxy_class;
 
 CREATE TABLE galaxy_class(
 	galaxy_class_id SERIAL PRIMARY KEY,
-	name VARCHAR(256) NOT null UNIQUE
+	name VARCHAR(256) NOT null UNIQUE,
+  description TEXT,
+  bool BOOLEAN not null
 );
 
 CREATE TABLE galaxy(
 	galaxy_id SERIAL PRIMARY KEY,
 	name VARCHAR(256) unique,
 	galaxy_class_id INT,
-	is_discovered BOOL not null,
+	is_discovered BOOLEAN not null,
 	rating INT,
 	
 	CONSTRAINT fk_galaxy_class
@@ -58,10 +60,10 @@ CREATE TABLE moon(
 );
 
 --INSERTS
-insert into galaxy_class("name") values
-('small'),
-('average'),
-('giant');
+insert into galaxy_class("name", description, bool) values
+('small', null, false),
+('average', null, false),
+('giant', null, true);
 
 insert into galaxy("name", galaxy_class_id, is_discovered, rating)  values
 ('galaxy#1', 1, true, 10),
